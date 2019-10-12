@@ -304,7 +304,7 @@ class MasterUI {open : {private GuiUpdates}
       if (close)
       {
           synth->guiClosed(true);
-      }} open
+      }}
       xywh {231 433 385 465} type Double labelfont 13 labelsize 12 hide xclass Yoshimi
     } {
       Fl_Box {} {
@@ -641,7 +641,7 @@ paramsui->Show(TOPLEVEL::XML::Scale);}
         }
       }
       Fl_Group MasterControls {
-        label {Master  } selected
+        label {Master  }
         xywh {3 24 380 91} labeltype NO_LABEL labelsize 11 labelcolor 96 align 22
       } {
         Fl_Dial globalfinedetune {
@@ -1106,12 +1106,12 @@ Alan Calvert started the project}
     }
     Fl_Window panelwindow {
       label {Yoshimi Mixer Panel} open
-      xywh {483 128 550 670} type Double labelfont 13 labelsize 13
+      xywh {538 72 950 660} type Double labelfont 13 labelsize 13
       code0 {//if (synth->getRuntime().single_row_panel) ;}
       code1 {o->copy_label(synth->makeUniqueName("Mixer Panel").c_str());} visible
     } {
       Fl_Pack Panelpack1 {open
-        xywh {8 10 533 270} type HORIZONTAL
+        xywh {12 10 480 270} type HORIZONTAL
         code0 {//
           for (int i = 0; i < 8; i++)
           {
@@ -1121,11 +1121,11 @@ Alan Calvert started the project}
         code1 {o->spacing(-3);}
       } {}
       Fl_Pack Panelpack2 {open
-        xywh {8 325 533 270} type HORIZONTAL
+        xywh {12 300 480 270} type HORIZONTAL
         code0 {//
             for (int i = 8; i < 16; i++)
             {
-                 panellistitem[i] = new Panellistitem(0, 0, 70, 260, "");
+                 panellistitem[i] = new Panellistitem(0, 0, 60, 270, "");
                  panellistitem[i]->init(i, bankui, synth);
             }}
         code1 {o->spacing(-3);}
@@ -1134,21 +1134,21 @@ Alan Calvert started the project}
         label Close
         callback {//
         panelwindow->hide();}
-        xywh {482 646 55 25} box THIN_UP_BOX labelsize 13
+        xywh {441 612 55 25} box THIN_UP_BOX labelsize 13
       }
       Fl_Button {} {
         label {Change to 1 x 16}
         callback {//
         synth->getRuntime().single_row_panel = 1;
         updatepanel();}
-        xywh {354 640 118 25} box THIN_UP_BOX labelsize 13
+        xywh {313 612 118 25} box THIN_UP_BOX labelsize 13
       }
       Fl_Button {} {
         label {Change to 2 x 8}
         callback {//
         synth->getRuntime().single_row_panel = 0;
         updatepanel();}
-        xywh {821 319 116 25} box THIN_UP_BOX labelsize 13
+        xywh {720 310 116 25} box THIN_UP_BOX labelsize 13
       }
       Fl_Choice Panelgroups {
         label {Part Group}
@@ -1156,7 +1156,7 @@ Alan Calvert started the project}
         panelgroup = o->value() * NUM_MIDI_CHANNELS;
         Panelsmallgroups->value(o->value());
         updatepanel();}
-        xywh {12 650 86 18} down_box BORDER_BOX labelsize 12 align 1 textsize 12
+        xywh {10 616 75 18} down_box BORDER_BOX labelsize 12 align 1 textsize 12
       } {
         MenuItem {} {
           label {1 to 16}
@@ -1181,7 +1181,7 @@ Alan Calvert started the project}
         panelgroup = o->value() * NUM_MIDI_CHANNELS;
         Panelgroups->value(o->value());
         updatepanel();}
-        xywh {12 650 86 18} down_box BORDER_BOX labelsize 12 align 1 textsize 12
+        xywh {10 616 75 18} down_box BORDER_BOX labelsize 12 align 1 textsize 12
       } {
         MenuItem {} {
           label {1 to 16}
@@ -1196,7 +1196,7 @@ Alan Calvert started the project}
         label CC
         callback {//
         CSpend->show();}
-        xywh {216 650 50 18} labelsize 12 align 1 minimum 0 maximum 127 value 115 textsize 12
+        xywh {178 616 50 18} labelsize 12 align 1 minimum 0 maximum 127 value 115 textsize 12
         code0 {CS_CC = synth->getRuntime().channelSwitchCC;}
         code1 {if (CS_CC < 128) o->value(CS_CC); else o->value(115);}
       }
@@ -1226,13 +1226,13 @@ Alan Calvert started the project}
         {
             send_data(TOPLEVEL::action::forceUpdate, MAIN::control::soloCC, CSspinner->value(), TOPLEVEL::type::Integer, TOPLEVEL::section::main);
         }}
-        tooltip {Click to set} xywh {276 651 70 20} box PLASTIC_UP_BOX color 90 labelsize 12 hide
+        tooltip {Click to set} xywh {237 616 70 20} box PLASTIC_UP_BOX color 90 labelsize 12 hide
       }
       Fl_Choice channelswitch {
         label Solo
         callback {//
                 send_data(TOPLEVEL::action::forceUpdate, MAIN::control::soloType, o->value(), TOPLEVEL::type::Integer, TOPLEVEL::section::main);}
-        tooltip {Assign groups of parts to Ch 1, singly enabled by MIDI} xywh {125 650 74 18} down_box BORDER_BOX labelsize 12 align 1 textsize 12
+        tooltip {Assign groups of parts to Ch 1, singly enabled by MIDI} xywh {94 616 74 18} down_box BORDER_BOX labelsize 12 align 1 textsize 12
         code1 {o->value(synth->getRuntime().channelSwitchType);}
         code2 {if (o->value() == 0) CSspinner->hide(); else CSspinner->show();}
         code3 {CS_CC = o->value();}
@@ -1856,29 +1856,30 @@ Alan Calvert started the project}
     int tmp = part % NUM_MIDI_CHANNELS;
     panellistitem[tmp]->refresh();} {}
   }
-  Function {updatepanel(bool full = false)} {} {
+  Function {updatepanel(bool full = false)} {open
+  } {
     code {//
     if (synth->getRuntime().single_row_panel)
     {
-            panelwindow->size(1085,350);
-            Panelpack2->position(544,10);
-            Panelclose->position(1018,319);
-            Panelgroups->position(12,327);
-            Panelsmallgroups->position(12,327);
-            channelswitch->position(130,327);
-            CSspinner->position(216,327);
-            CSpend->position(276,325);
+            panelwindow->size(960,350);
+            Panelpack2->position(480,10);
+            Panelclose->position(860,310);
+            Panelgroups->position(16,318);
+            Panelsmallgroups->position(16,318);
+            channelswitch->position(130,318);
+            CSspinner->position(216,318);
+            CSpend->position(278,316);
     }
     else
     {
-            panelwindow->size(550,670);
-            Panelpack2->position(8,325);
-            Panelclose->position(482,639);
-            Panelgroups->position(12,645);
-            Panelsmallgroups->position(12,645);
-            channelswitch->position(130,645);
-            CSspinner->position(216,645);
-            CSpend->position(275,643);
+            panelwindow->size(510,660);
+            Panelpack2->position(12,310);
+            Panelclose->position(441,612);
+            Panelgroups->position(10,616);
+            Panelsmallgroups->position(10,616);
+            channelswitch->position(94,616);
+            CSspinner->position(175,616);
+            CSpend->position(233,614);
     }
 
     for (int npart = 0; npart < partmax; ++npart)
@@ -1926,7 +1927,8 @@ Alan Calvert started the project}
     }
     panelwindow->changed();} {}
   }
-  Function {updateEngines(bool isOn)} {} {
+  Function {updateEngines(bool isOn)} {selected
+  } {
     code {//
         bankui->rescan_for_banks(true);
         bankui->enginecheck->value(isOn);
