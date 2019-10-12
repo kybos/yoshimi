@@ -47,8 +47,7 @@ WidgetPDial::WidgetPDial(int x,int y, int w, int h, const char *label) : Fl_Dial
     oldvalue = 0.0;
     
     type(FL_LINE_DIAL);
-    box(FL_ROUND_UP_BOX);
-    color(FL_BLUE);
+    //~ box(FL_ROUND_UP_BOX);
 }
 
 WidgetPDial::~WidgetPDial()

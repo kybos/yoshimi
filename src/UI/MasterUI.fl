@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0304
+version 1,0400
 header_name {.h}
 code_name {.cc}
 comment {MasterUI.h} {not_in_source in_header
@@ -106,7 +106,7 @@ decl {\#include "Misc/TextMsgBuffer.h"
     }} {private local
 }
 
-class MasterUI {selected : {private GuiUpdates}
+class MasterUI {open : {private GuiUpdates}
 } {
   Function {MasterUI(SynthEngine *_synth)} {} {
     code {//
@@ -278,7 +278,8 @@ class MasterUI {selected : {private GuiUpdates}
           words->copy_label(msg.c_str());
           message->show();}} {}
   }
-  Function {make_window()} {} {
+  Function {make_window()} {open
+  } {
     Fl_Window masterwindow {
       label {Yoshimi meets ZynAddSubFX}
       callback {//
@@ -303,7 +304,7 @@ class MasterUI {selected : {private GuiUpdates}
       if (close)
       {
           synth->guiClosed(true);
-      }}
+      }} open
       xywh {231 433 385 465} type Double labelfont 13 labelsize 12 hide xclass Yoshimi
     } {
       Fl_Box {} {
@@ -714,11 +715,11 @@ paramsui->Show(TOPLEVEL::XML::Scale);}
         if (o->value() == SystemEffectsGrp)
             showSysEfxUI();
         else if (o->value() == InsertionEffectsGrp)
-            showInsEfxUI();}
+            showInsEfxUI();} open
         xywh {3 88 379 68} box PLASTIC_UP_BOX color 44 selection_color 221 labeltype NO_LABEL labelsize 12 align 5
       } {
         Fl_Group SystemEffectsGrp {
-          label {  System Effects  }
+          label {  System Effects  } open
           xywh {3 116 379 40} color 221 selection_color 31 labelfont 1 labelsize 12 align 4
         } {
           Fl_Spinner syseffnocounter {
@@ -1104,13 +1105,13 @@ Alan Calvert started the project}
       }
     }
     Fl_Window panelwindow {
-      label {Yoshimi Mixer Panel}
-      xywh {483 128 550 670} type Double labelfont 13 labelsize 13 hide
+      label {Yoshimi Mixer Panel} open
+      xywh {483 128 550 670} type Double labelfont 13 labelsize 13
       code0 {//if (synth->getRuntime().single_row_panel) ;}
-      code1 {o->copy_label(synth->makeUniqueName("Mixer Panel").c_str());}
+      code1 {o->copy_label(synth->makeUniqueName("Mixer Panel").c_str());} visible
     } {
-      Fl_Pack Panelpack1 {
-        xywh {8 10 533 286} type HORIZONTAL
+      Fl_Pack Panelpack1 {open
+        xywh {8 10 533 270} type HORIZONTAL
         code0 {//
           for (int i = 0; i < 8; i++)
           {
@@ -1119,8 +1120,8 @@ Alan Calvert started the project}
           }}
         code1 {o->spacing(-3);}
       } {}
-      Fl_Pack Panelpack2 {
-        xywh {8 325 533 286} type HORIZONTAL
+      Fl_Pack Panelpack2 {open selected
+        xywh {8 325 533 270} type HORIZONTAL
         code0 {//
             for (int i = 8; i < 16; i++)
             {

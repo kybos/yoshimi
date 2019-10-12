@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0304
+version 1,0400
 header_name {.h}
 code_name {.cc}
 comment {PartUI.h} {not_in_source in_header
@@ -29,7 +29,7 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 This file is derivative of ZynAddSubFX original code.
 
-} {selected in_source in_header
+} {in_source in_header
 }
 
 decl {\#include <FL/fl_ask.H>
@@ -65,12 +65,13 @@ decl {\#include "Misc/TextMsgBuffer.h"
     }} {private local
 }
 
-class PartSysEffSend {: {public Fl_Group}
+class PartSysEffSend {open : {public Fl_Group}
 } {
-  Function {make_window()} {} {
-    Fl_Window syseffsend {
-      xywh {916 904 50 80} type Double hide
-      class Fl_Group
+  Function {make_window()} {open
+  } {
+    Fl_Window syseffsend {open
+      xywh {916 904 50 80} type Double
+      class Fl_Group visible
     } {
       Fl_Dial sysend {
         label 01
@@ -104,7 +105,8 @@ class PartSysEffSend {: {public Fl_Group}
     syseffsend->show();
     end();} {}
   }
-  Function {~PartSysEffSend()} {} {
+  Function {~PartSysEffSend()} {selected
+  } {
     code {//
     syseffsend->hide();} {}
   }
@@ -116,7 +118,8 @@ class PartSysEffSend {: {public Fl_Group}
   }
 }
 
-class PartUI_ {} {
+class PartUI_ {open
+} {
   Function {showparameters(int /* kititem */,int /* engine */)} {return_type virtual
   } {
     code {;} {}
@@ -125,7 +128,8 @@ class PartUI_ {} {
 
 class PartKitItem {: {public Fl_Group}
 } {
-  Function {make_window()} {} {
+  Function {make_window()} {open
+  } {
     Fl_Window partkititem {
       xywh {726 127 670 30} type Double hide
       class Fl_Group
@@ -395,14 +399,15 @@ class PartKitItem {: {public Fl_Group}
   }
 }
 
-class PartUI {: {public Fl_Group, PartUI_}
+class PartUI {open : {public Fl_Group, PartUI_}
 } {
-  Function {make_window()} {} {
-    Fl_Window partgroup {
-      xywh {996 337 380 170} type Double box NO_BOX hide
-      class Fl_Group
+  Function {make_window()} {open
+  } {
+    Fl_Window partgroup {open
+      xywh {996 337 380 170} type Double box NO_BOX
+      class Fl_Group visible
     } {
-      Fl_Group partgroupui {
+      Fl_Group partgroupui {open
         xywh {0 0 378 168}
         code0 {if (part->Penabled != 1) o->deactivate();}
       } {
@@ -750,7 +755,7 @@ Offset}
         code0 {o->value(part->Penabled == 1);}
       }
       Fl_Scroll toSysEfx {
-        label {System Effect Sends}
+        label {System Effect Sends} open
         xywh {245 114 125 48} labelsize 11
         code0 {if (part->Penabled != 1)
         {
@@ -764,7 +769,7 @@ Offset}
         Fl_Pack {} {
           label {To Sys Efx}
           xywh {247 118 122 39} type HORIZONTAL labeltype NO_LABEL labelsize 11 align 0
-          code0 {o->spacing(7);}
+          code0 {o->spacing(12);}
           code1 {//
               for (int i = 0; i < NUM_SYS_EFX; ++i)
             {
@@ -784,7 +789,7 @@ Offset}
         label {Vol Rng}
         callback {//
         send_data(0, PART::control::volumeRange, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Volume Range} xywh {132 55 30 30} labelsize 10 minimum 64 maximum 127 step 1
+        tooltip {Volume Range} xywh {132 55 30 30} box ROUND_UP_BOX labelsize 10 minimum 64 maximum 127 step 1
         code0 {o->value(part->ctl->volume.data);}
         class WidgetPDial
       }
@@ -799,7 +804,7 @@ Offset}
         label PanWdth
         callback {//
         send_data(0, PART::control::panningWidth, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Panning Width} xywh {10 55 30 30} labelsize 10 maximum 64 step 1
+        tooltip {Panning Width} xywh {10 55 30 30} box ROUND_UP_BOX labelsize 10 maximum 64 step 1
         code0 {o->value(part->ctl->panning.depth);}
         class WidgetPDial
       }
@@ -807,7 +812,7 @@ Offset}
         label ModWh
         callback {//
         send_data(0, PART::control::modWheelDepth, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Modulation Wheel depth} xywh {50 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Modulation Wheel depth} xywh {50 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->modwheel.depth);}
         class WidgetPDial
       }
@@ -822,7 +827,7 @@ Offset}
         label BwDpth
         callback {//
         send_data(0, PART::control::bandwidthDepth, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {BandWidth depth} xywh {132 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip {BandWidth depth} xywh {132 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->bandwidth.depth);}
         class WidgetPDial
       }
@@ -873,7 +878,7 @@ Offset}
         label FltQ
         callback {//
         send_data(0, PART::control::filterQdepth, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Filter Q depth} xywh {50 55 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Filter Q depth} xywh {50 55 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->filterq.depth);}
         class WidgetPDial
       }
@@ -881,7 +886,7 @@ Offset}
         label FltCut
         callback {//
         send_data(0, PART::control::filterCutoffDepth, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Filter Cutoff depth} xywh {90 55 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Filter Cutoff depth} xywh {90 55 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->filtercutoff.depth);}
         class WidgetPDial
       }
@@ -905,7 +910,7 @@ Offset}
           label CFdpth
           callback {//
           send_data(0, PART::control::resonanceCenterFrequencyDepth, o->value(), TOPLEVEL::type::Integer);}
-          tooltip {Center Frequency controller Depth} xywh {300 20 25 25} labelsize 10 maximum 127 step 1
+          tooltip {Center Frequency controller Depth} xywh {300 20 25 25} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
           code0 {o->value(part->ctl->resonancecenter.depth);}
           class WidgetPDial
         }
@@ -913,7 +918,7 @@ Offset}
           label BWdpth
           callback {//
           send_data(0, PART::control::resonanceBandwidthDepth, o->value(), TOPLEVEL::type::Integer);}
-          tooltip {BandWidth controller depth} xywh {300 60 25 25} labelsize 10 maximum 127 step 1
+          tooltip {BandWidth controller depth} xywh {300 60 25 25} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
           code0 {o->value(part->ctl->resonancebandwidth.depth);}
           class WidgetPDial
         }
@@ -930,7 +935,7 @@ Offset}
           label time
           callback {//
           send_data(0, PART::control::portamentoTime, o->value(), TOPLEVEL::type::Integer);}
-          tooltip {Portamento time} xywh {345 60 25 25} labelsize 10 maximum 127 step 1
+          tooltip {Portamento time} xywh {345 60 25 25} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
           code0 {o->value(part->ctl->portamento.time);}
           class WidgetPDial
         }
@@ -938,7 +943,7 @@ Offset}
           label {t.dn/up}
           callback {//
           send_data(0, PART::control::portamentoTimeStretch, o->value(), TOPLEVEL::type::Integer);}
-          tooltip {Portamento time stretch (up/down)} xywh {375 60 25 25} labelsize 10 maximum 127 step 1
+          tooltip {Portamento time stretch (up/down)} xywh {375 60 25 25} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
           code0 {o->value(part->ctl->portamento.updowntimestretch);}
           class WidgetPDial
         }
@@ -960,7 +965,7 @@ Offset}
           label {Prp.Rate}
           callback {//
           send_data(0, PART::control::proportionalPortamentoRate, o->value(), TOPLEVEL::type::Integer);}
-          tooltip {Distance required to double change from nonpropotinal portamento time} xywh {463 20 25 25} labelsize 9 maximum 127 step 1
+          tooltip {Distance required to double change from nonpropotinal portamento time} xywh {463 20 25 25} box ROUND_UP_BOX labelsize 9 maximum 127 step 1
           code0 {o->value(part->ctl->portamento.propRate);}
           class WidgetPDial
         }
@@ -968,7 +973,7 @@ Offset}
           label {Prp.Dpth}
           callback {//
           send_data(0, PART::control::proportionalPortamentoDepth, o->value(), TOPLEVEL::type::Integer);}
-          tooltip {The difference from nonproportinal portamento} xywh {463 60 25 25} labelsize 9 maximum 127 step 1
+          tooltip {The difference from nonproportinal portamento} xywh {463 60 25 25} box ROUND_UP_BOX labelsize 9 maximum 127 step 1
           code0 {o->value(part->ctl->portamento.propDepth);}
           class WidgetPDial
         }
@@ -1010,7 +1015,7 @@ Offset}
         label Modulation
         callback {//
         send_data(0, PART::control::midiModWheel, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Modulation Wheel} xywh {20 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Modulation Wheel} xywh {20 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->modwheel.data);}
         class WidgetPDial
       }
@@ -1018,7 +1023,7 @@ Offset}
         label Expression
         callback {//
         send_data(0, PART::control::midiExpression,  o->value(), TOPLEVEL::type::Integer);}
-        tooltip Expression xywh {80 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip Expression xywh {80 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->expression.data);}
         class WidgetPDial
       }
@@ -1026,7 +1031,7 @@ Offset}
         label {Filter Q}
         callback {//
         send_data(0, PART::control::midiFilterQ, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Filter Q} xywh {140 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Filter Q} xywh {140 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->filterq.data);}
         class WidgetPDial
       }
@@ -1034,7 +1039,7 @@ Offset}
         label {Filter Cutoff}
         callback {//
         send_data(0, PART::control::midiFilterCutoff, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Filter Cutoff} xywh {200 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Filter Cutoff} xywh {200 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->filtercutoff.data);}
         class WidgetPDial
       }
@@ -1042,7 +1047,7 @@ Offset}
         label Bandwidth
         callback {//
         send_data(0, PART::control::midiBandwidth, o->value(), TOPLEVEL::type::Integer);}
-        tooltip {Master Bandwidth} xywh {260 10 30 30} labelsize 10 maximum 127 step 1
+        tooltip {Master Bandwidth} xywh {260 10 30 30} box ROUND_UP_BOX labelsize 10 maximum 127 step 1
         code0 {o->value(part->ctl->bandwidth.data);}
         class WidgetPDial
       }
