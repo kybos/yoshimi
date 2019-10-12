@@ -33,8 +33,8 @@
 #include <FL/Fl_Tooltip.H>
 #include <FL/Fl_Group.H>
 #include <FL/x.H>
-#include <cairo.h>
-#include <cairo-xlib.h>
+//#include <cairo.h>
+//#include <cairo-xlib.h>
 
 using func::limit;
 
@@ -45,6 +45,10 @@ WidgetPDial::WidgetPDial(int x,int y, int w, int h, const char *label) : Fl_Dial
     Fl_Group::current(save);
 
     oldvalue = 0.0;
+    
+    type(FL_LINE_DIAL);
+    box(FL_ROUND_UP_BOX);
+    color(FL_BLUE);
 }
 
 WidgetPDial::~WidgetPDial()
@@ -180,74 +184,76 @@ void WidgetPDial::drawgradient(int cx,int cy,int sx,double m1,double m2)
 
 void WidgetPDial::draw()
 {
-    int cx = x(), cy = y(), sx = w(), sy = h();
-    double d = (sx>sy)?sy:sx; // d = the smallest side -2
-    double dh = d/2;
-    fl_color(170,170,170);
-    fl_pie(cx - 2, cy - 2, d + 4, d + 4, 0, 360);
-    double val = (value() - minimum()) / (maximum() - minimum());
-    cairo_t *cr;
-    cairo_surface_t* Xsurface = cairo_xlib_surface_create
-        (fl_display, fl_window, fl_visual->visual,Fl_Window::current()->w(),
-         Fl_Window::current()->h());
-    cr = cairo_create (Xsurface);
-    cairo_translate(cr,cx+dh,cy+dh);
-    //relative lengths of the various parts:
-    double rCint = 10.5/35;
-    double rCout = 13.0/35;
-    double rHand = 8.0/35;
-    double rGear = 15.0/35;
-    //drawing base dark circle
-    if (active_r())
-    {
-        cairo_pattern_create_rgb(51.0/255,51.0/255,51.0/255);
-    } else {
-        cairo_set_source_rgb(cr,0.4,0.4,0.4);
-    }
-    cairo_arc(cr,0,0,dh,0,2*M_PI);
-    cairo_fill(cr);
-    cairo_pattern_t* pat;
-    //drawing the inner circle:
-    pat = cairo_pattern_create_linear(0.5*dh,0.5*dh,0,-0.5*dh);
-    cairo_pattern_add_color_stop_rgba (pat, 0, 0.8*186.0/255, 0.8*198.0/255, 0.8*211.0/255, 1);
-    cairo_pattern_add_color_stop_rgba (pat, 1, 231.0/255, 235.0/255, 239.0/255, 1);
-    cairo_set_source (cr, pat);
-    cairo_arc(cr,0,0,d*rCout,0,2*M_PI);
-    cairo_fill(cr);
-    //drawing the outer circle:
-    pat = cairo_pattern_create_radial(2.0/35*d,6.0/35*d,2.0/35*d,0,0,d*rCint);
-    cairo_pattern_add_color_stop_rgba (pat, 0, 231.0/255, 235.0/255, 239.0/255, 1);
-    cairo_pattern_add_color_stop_rgba (pat, 1, 186.0/255, 198.0/255, 211.0/255, 1);
-    cairo_set_source (cr, pat);
-    cairo_arc(cr,0,0,d*rCint,0,2*M_PI);
-    cairo_fill(cr);
-    //drawing the "light" circle:
-    if (active_r())
-    {
-        cairo_set_source_rgb(cr,0,197.0/255,245.0/255); //light blue
-    } else {
-        cairo_set_source_rgb(cr,0.6,0.7,0.8);
-    }
-    cairo_set_line_width (cr, 2);
-    cairo_new_sub_path(cr);
-    cairo_arc(cr,0,0,d*rGear,0.75*M_PI,+val*1.5*M_PI+0.75*M_PI);
-    cairo_stroke(cr);
-    //drawing the hand:
-    if (active_r())
-    {
-        cairo_set_source_rgb(cr,61.0/255,61.0/255,61.0/255);
-    } else {
-        cairo_set_source_rgb(cr,111.0/255,111.0/255,111.0/255);
-    }
-    cairo_rotate(cr,val*3/2*M_PI+0.25*M_PI);
-    cairo_set_line_width (cr, 2.3);
-    cairo_move_to(cr,0,0);
-    cairo_line_to(cr,0,d*rHand);
-    cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
-    cairo_stroke (cr);
-    //freeing the resources
-    cairo_pattern_destroy(pat);
-    cairo_surface_destroy(Xsurface);  cairo_destroy(cr);
+	Fl_Dial::draw();
+	
+    //~ int cx = x(), cy = y(), sx = w(), sy = h();
+    //~ double d = (sx>sy)?sy:sx; // d = the smallest side -2
+    //~ double dh = d/2;
+    //~ fl_color(170,170,170);
+    //~ fl_pie(cx - 2, cy - 2, d + 4, d + 4, 0, 360);
+    //~ double val = (value() - minimum()) / (maximum() - minimum());
+    //~ cairo_t *cr;
+    //~ cairo_surface_t* Xsurface = cairo_xlib_surface_create
+        //~ (fl_display, fl_window, fl_visual->visual,Fl_Window::current()->w(),
+         //~ Fl_Window::current()->h());
+    //~ cr = cairo_create (Xsurface);
+    //~ cairo_translate(cr,cx+dh,cy+dh);
+    //~ //relative lengths of the various parts:
+    //~ double rCint = 10.5/35;
+    //~ double rCout = 13.0/35;
+    //~ double rHand = 8.0/35;
+    //~ double rGear = 15.0/35;
+    //~ //drawing base dark circle
+    //~ if (active_r())
+    //~ {
+        //~ cairo_pattern_create_rgb(51.0/255,51.0/255,51.0/255);
+    //~ } else {
+        //~ cairo_set_source_rgb(cr,0.4,0.4,0.4);
+    //~ }
+    //~ cairo_arc(cr,0,0,dh,0,2*M_PI);
+    //~ cairo_fill(cr);
+    //~ cairo_pattern_t* pat;
+    //~ //drawing the inner circle:
+    //~ pat = cairo_pattern_create_linear(0.5*dh,0.5*dh,0,-0.5*dh);
+    //~ cairo_pattern_add_color_stop_rgba (pat, 0, 0.8*186.0/255, 0.8*198.0/255, 0.8*211.0/255, 1);
+    //~ cairo_pattern_add_color_stop_rgba (pat, 1, 231.0/255, 235.0/255, 239.0/255, 1);
+    //~ cairo_set_source (cr, pat);
+    //~ cairo_arc(cr,0,0,d*rCout,0,2*M_PI);
+    //~ cairo_fill(cr);
+    //~ //drawing the outer circle:
+    //~ pat = cairo_pattern_create_radial(2.0/35*d,6.0/35*d,2.0/35*d,0,0,d*rCint);
+    //~ cairo_pattern_add_color_stop_rgba (pat, 0, 231.0/255, 235.0/255, 239.0/255, 1);
+    //~ cairo_pattern_add_color_stop_rgba (pat, 1, 186.0/255, 198.0/255, 211.0/255, 1);
+    //~ cairo_set_source (cr, pat);
+    //~ cairo_arc(cr,0,0,d*rCint,0,2*M_PI);
+    //~ cairo_fill(cr);
+    //~ //drawing the "light" circle:
+    //~ if (active_r())
+    //~ {
+        //~ cairo_set_source_rgb(cr,0,197.0/255,245.0/255); //light blue
+    //~ } else {
+        //~ cairo_set_source_rgb(cr,0.6,0.7,0.8);
+    //~ }
+    //~ cairo_set_line_width (cr, 2);
+    //~ cairo_new_sub_path(cr);
+    //~ cairo_arc(cr,0,0,d*rGear,0.75*M_PI,+val*1.5*M_PI+0.75*M_PI);
+    //~ cairo_stroke(cr);
+    //~ //drawing the hand:
+    //~ if (active_r())
+    //~ {
+        //~ cairo_set_source_rgb(cr,61.0/255,61.0/255,61.0/255);
+    //~ } else {
+        //~ cairo_set_source_rgb(cr,111.0/255,111.0/255,111.0/255);
+    //~ }
+    //~ cairo_rotate(cr,val*3/2*M_PI+0.25*M_PI);
+    //~ cairo_set_line_width (cr, 2.3);
+    //~ cairo_move_to(cr,0,0);
+    //~ cairo_line_to(cr,0,d*rHand);
+    //~ cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+    //~ cairo_stroke (cr);
+    //~ //freeing the resources
+    //~ cairo_pattern_destroy(pat);
+    //~ cairo_surface_destroy(Xsurface);  cairo_destroy(cr);
 }
 
 inline void WidgetPDial::pdialcolor(int r,int g,int b)

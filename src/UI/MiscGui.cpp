@@ -27,8 +27,8 @@
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
 
-#include <cairo.h>
-#include <cairo-xlib.h>
+//#include <cairo.h>
+//#include <cairo-xlib.h>
 
 
 namespace { // Implementation details...
@@ -1260,12 +1260,12 @@ void custom_graphics(ValueType vt, float val,int W,int H)
         {
             fl_line(x0, cy, x0 + _w, cy);
         }
-        else
-        {
-            const float p = ((int)val / 64.0f) * 3.0;
+//        else
+//        {
+//            const float p = ((int)val / 64.0f) * 3.0;
 
             /* Cairo not necessary, but makes it easier to read the graph */
-            cairo_t *cr;
+/*            cairo_t *cr;
             cairo_surface_t* Xsurface = cairo_xlib_surface_create
                 (fl_display, fl_window, fl_visual->visual,
                  Fl_Window::current()->w(), Fl_Window::current()->h());
@@ -1277,8 +1277,8 @@ void custom_graphics(ValueType vt, float val,int W,int H)
             cairo_line_to(cr, x0 + _w, cy - ry * log10(powf(0.05, p)));
             cairo_stroke(cr);
 
-            cairo_surface_destroy(Xsurface);  cairo_destroy(cr);
-        }
+            cairo_surface_destroy(Xsurface);  cairo_destroy(cr); */
+//        }
         break;
     }
     default:
