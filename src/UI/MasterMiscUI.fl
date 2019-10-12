@@ -425,7 +425,7 @@ class Panellistitem {open : {public Fl_Group}
   Function {make_window()} {open
   } {
     Fl_Window panellistitem {open
-      xywh {1195 41 60 270} type Double
+      xywh {776 448 60 270} type Double
       class Fl_Group visible
     } {
       Fl_Group panellistitemgroup {open
@@ -466,7 +466,7 @@ partVUMeter->panelpart.clipR[npart] = false;}
                   bankui->cbwig->do_callback();
               }}
           tooltip {Left mouse button: Part select
-Right mouse button: Instrument edit} xywh {12 248 40 20} box PLASTIC_UP_BOX labelfont 9 labelsize 10
+Right mouse button: Instrument edit} xywh {12 248 40 20} box PLASTIC_UP_BOX labelfont 1 labelsize 10
         }
         Fl_Box partadd {
           xywh {5 20 17 40} box FLAT_BOX
@@ -513,8 +513,8 @@ Right mouse button: Instrument edit} xywh {12 248 40 20} box PLASTIC_UP_BOX labe
     if (Fl::event_button() == 3)
         o->value(64);
 
-    send_data(TOPLEVEL::action::forceUpdate, PART::control::panning, o->value(), TOPLEVEL::type::Integer);} selected
-          xywh {17 180 30 30} box ROUND_UP_BOX maximum 127 step 1
+    send_data(TOPLEVEL::action::forceUpdate, PART::control::panning, o->value(), TOPLEVEL::type::Integer);}
+          xywh {17 178 30 30} box ROUND_UP_BOX maximum 127 step 1
           code0 {o->value(synth->part[npart + *plgroup]->Ppanning);}
           code1 {o->setValueType(VC_PanningStd);}
           class WidgetPDial
@@ -524,8 +524,8 @@ Right mouse button: Instrument edit} xywh {12 248 40 20} box PLASTIC_UP_BOX labe
       int tmp = o->value() & 0xf;
       o->textcolor(FL_BLACK);
 
-      send_data(TOPLEVEL::action::forceUpdate, PART::control::midiChannel, tmp, TOPLEVEL::type::Integer);}
-          tooltip {receive from MIDI channel} xywh {8 210 50 15} down_box BORDER_BOX labelsize 10 align 5 textfont 9 textsize 10
+      send_data(TOPLEVEL::action::forceUpdate, PART::control::midiChannel, tmp, TOPLEVEL::type::Integer);} open
+          tooltip {receive from MIDI channel} xywh {8 210 50 16} down_box BORDER_BOX labelsize 10 align 5 textsize 10
           code0 {for(int i = 0; i < NUM_MIDI_CHANNELS; i++)
             {
                 if (i == 9)
@@ -537,21 +537,21 @@ Right mouse button: Instrument edit} xywh {12 248 40 20} box PLASTIC_UP_BOX labe
         } {}
         Fl_Choice audiosend {
           callback {//
-    send_data(TOPLEVEL::action::muteAndLoop, PART::control::audioDestination, o->value() + 1, TOPLEVEL::type::Integer);}
-          tooltip {Set Audio Destination} xywh {8 229 50 15} box BORDER_BOX down_box BORDER_BOX labelsize 9 textfont 9 textsize 9
+    send_data(TOPLEVEL::action::muteAndLoop, PART::control::audioDestination, o->value() + 1, TOPLEVEL::type::Integer);} open selected
+          tooltip {Set Audio Destination} xywh {8 229 50 16} box BORDER_BOX down_box BORDER_BOX labelsize 9 textsize 9
           code0 {if (synth->part[npart + *plgroup]->Paudiodest == 2) o->value(1); else if (synth->part[npart + *plgroup]->Paudiodest == 3) o->value(2); else o->value(0);}
         } {
           MenuItem main {
             label Main
-            xywh {5 0 34 20} labelfont 9 labelsize 10
+            xywh {5 0 34 15} labelsize 10
           }
           MenuItem part {
             label Part
-            xywh {5 10 34 20} labelfont 9 labelsize 10
+            xywh {5 10 34 15} labelsize 10
           }
           MenuItem both {
             label Both
-            xywh {5 20 34 20} labelfont 9 labelsize 10
+            xywh {5 20 34 15} labelsize 10
           }
         }
       }

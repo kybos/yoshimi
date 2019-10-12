@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0304
+version 1,0400
 header_name {.h}
 code_name {.cc}
 comment {VirKeyboard.h} {not_in_source in_header
@@ -30,7 +30,7 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 This file is a derivative of original ZynAddSubFX code
 
-} {selected in_source in_header
+} {in_source in_header
 }
 
 decl {\#include <stdlib.h>} {public local
@@ -315,13 +315,15 @@ class VirKeys {: {public Fl_Box}
   }
 }
 
-class VirKeyboard {} {
-  Function {make_window()} {} {
+class VirKeyboard {open
+} {
+  Function {make_window()} {open
+  } {
     Fl_Window virkeyboardwindow {
       label {Yoshimi Virtual Keyboard}
       callback {//
       relaseallkeys();
-      virkeyboardwindow->hide();}
+      virkeyboardwindow->hide();} open
       xywh {95 119 650 130} type Double hide
     } {
       Fl_Box virkeys {
@@ -382,8 +384,8 @@ z x c v b n m ...} xywh {365 110 45 15} type Simple labelsize 10 align 4 when 6 
         label Close
         callback {//
         relaseallkeys();
-        virkeyboardwindow->hide();}
-        xywh {452 101 55 20} box THIN_UP_BOX labelsize 12
+        virkeyboardwindow->hide();} selected
+        xywh {446 101 55 20} box THIN_UP_BOX labelsize 12
       }
       Fl_Value_Output ctlval {
         label Cval
@@ -454,7 +456,7 @@ z x c v b n m ...} xywh {365 110 45 15} type Simple labelsize 10 align 4 when 6 
                 break;
         }
         virkeys->take_focus();}
-        xywh {524 105 100 15} down_box BORDER_BOX labelsize 10 align 1 when 6 textfont 1 textsize 10
+        xywh {515 105 107 18} down_box BORDER_BOX labelsize 10 align 1 when 6 textfont 1 textsize 10
         code0 {midictl=MIDI::CC::filterCutoff;o->value(7);}
       } {
         MenuItem {} {

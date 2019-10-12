@@ -641,7 +641,7 @@ paramsui->Show(TOPLEVEL::XML::Scale);}
         }
       }
       Fl_Group MasterControls {
-        label {Master  }
+        label {Master  } selected
         xywh {3 24 380 91} labeltype NO_LABEL labelsize 11 labelcolor 96 align 22
       } {
         Fl_Dial globalfinedetune {
@@ -1115,12 +1115,12 @@ Alan Calvert started the project}
         code0 {//
           for (int i = 0; i < 8; i++)
           {
-              panellistitem[i] = new Panellistitem(0, 0, 70, 260, "");
+              panellistitem[i] = new Panellistitem(0, 0, 60, 270, "");
               panellistitem[i]->init(i, bankui, synth);
           }}
         code1 {o->spacing(-3);}
       } {}
-      Fl_Pack Panelpack2 {open selected
+      Fl_Pack Panelpack2 {open
         xywh {8 325 533 270} type HORIZONTAL
         code0 {//
             for (int i = 8; i < 16; i++)
