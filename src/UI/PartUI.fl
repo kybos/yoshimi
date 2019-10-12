@@ -65,12 +65,12 @@ decl {\#include "Misc/TextMsgBuffer.h"
     }} {private local
 }
 
-class PartSysEffSend {open : {public Fl_Group}
+class PartSysEffSend {: {public Fl_Group}
 } {
   Function {make_window()} {open
   } {
     Fl_Window syseffsend {open
-      xywh {916 904 50 80} type Double
+      xywh {916 904 25 40} type Double
       class Fl_Group visible
     } {
       Fl_Dial sysend {
@@ -105,8 +105,7 @@ class PartSysEffSend {open : {public Fl_Group}
     syseffsend->show();
     end();} {}
   }
-  Function {~PartSysEffSend()} {selected
-  } {
+  Function {~PartSysEffSend()} {} {
     code {//
     syseffsend->hide();} {}
   }
@@ -118,8 +117,7 @@ class PartSysEffSend {open : {public Fl_Group}
   }
 }
 
-class PartUI_ {open
-} {
+class PartUI_ {} {
   Function {showparameters(int /* kititem */,int /* engine */)} {return_type virtual
   } {
     code {;} {}
@@ -128,8 +126,7 @@ class PartUI_ {open
 
 class PartKitItem {: {public Fl_Group}
 } {
-  Function {make_window()} {open
-  } {
+  Function {make_window()} {} {
     Fl_Window partkititem {
       xywh {726 127 670 30} type Double hide
       class Fl_Group
@@ -404,7 +401,7 @@ class PartUI {open : {public Fl_Group, PartUI_}
   Function {make_window()} {open
   } {
     Fl_Window partgroup {open
-      xywh {996 337 380 170} type Double box NO_BOX
+      xywh {1003 235 380 170} type Double box NO_BOX
       class Fl_Group visible
     } {
       Fl_Group partgroupui {open
@@ -754,9 +751,9 @@ Offset}
         xywh {58 59 20 20} down_box DOWN_BOX labelsize 11 align 4
         code0 {o->value(part->Penabled == 1);}
       }
-      Fl_Scroll toSysEfx {
+      Fl_Group toSysEfx {
         label {System Effect Sends} open
-        xywh {245 114 125 48} labelsize 11
+        xywh {243 117 127 45} labelsize 11
         code0 {if (part->Penabled != 1)
         {
             toSysEfx->deactivate();
@@ -767,20 +764,20 @@ Offset}
         }}
       } {
         Fl_Pack {} {
-          label {To Sys Efx}
-          xywh {247 118 122 39} type HORIZONTAL labeltype NO_LABEL labelsize 11 align 0
-          code0 {o->spacing(12);}
+          label {To Sys Efx} open
+          xywh {245 120 122 40} type HORIZONTAL labeltype NO_LABEL labelsize 11 align 0
+          code0 {o->spacing(7);}
           code1 {//
               for (int i = 0; i < NUM_SYS_EFX; ++i)
             {
-              psyef[i] = new PartSysEffSend(0, 0, 25, 25);
+              psyef[i] = new PartSysEffSend(0, 0, 25, 40);
               psyef[i]->init(npart, i, synth);
             }}
         } {}
       }
     }
     Fl_Window ctlwindow {
-      label Controllers
+      label Controllers selected
       xywh {756 52 505 130} type Double hide
       code0 {o->copy_label(synth->getGuiMaster()->setPartWindowTitle("Controllers").c_str());}
       code1 {o->position(synth->getGuiMaster()->controllersX, synth->getGuiMaster()->controllersY);}
